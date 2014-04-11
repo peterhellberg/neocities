@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/peterhellberg/neocities/utils"
 )
 
 // Response from the Neocities API
@@ -19,10 +17,10 @@ type Response struct {
 // PopulateFromHTTPResponse use a HTTP response to populate itself
 func (r *Response) PopulateFromHTTPResponse(res *http.Response) {
 	body, err := ioutil.ReadAll(res.Body)
-	utils.Check(err)
+	check(err)
 
 	err = json.Unmarshal(body, &r)
-	utils.Check(err)
+	check(err)
 }
 
 // Print is printing the contents of the response to stdout

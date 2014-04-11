@@ -2,13 +2,13 @@ package api
 
 import (
 	"bytes"
+	"errors"
+	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
 	"os"
 	"path/filepath"
-
-	"github.com/peterhellberg/neocities/utils"
 )
 
 const (
@@ -25,10 +25,10 @@ type Credentials struct {
 // a list of filename paths to upload to Neocities.
 func UploadFiles(cred *Credentials, paths []string) (Response, error) {
 	req, err := prepareUploadPOSTRequest(cred, paths)
-	utils.Check(err)
+	check(err)
 
 	res, err := sendHTTPRequest(req)
-	utils.Check(err)
+	check(err)
 
 	defer res.Body.Close()
 
@@ -40,7 +40,7 @@ func UploadFiles(cred *Credentials, paths []string) (Response, error) {
 		return r, nil
 	}
 
-	return r, utils.Error("unsuccessful")
+	return r, errors.New("unsuccessful")
 }
 
 // Prepare upload POST request
@@ -66,11 +66,11 @@ func prepareUploadPOSTRequest(cred *Credentials, paths []string) (*http.Request,
 		}
 
 		_, err = io.Copy(part, file)
-		utils.Check(err)
+		check(err)
 	}
 
 	err := writer.Close()
-	utils.Check(err)
+	check(err)
 
 	req, err := http.NewRequest("POST", apiURL+"upload", body)
 	if err != nil {
@@ -93,7 +93,15 @@ func sendHTTPRequest(req *http.Request) (*http.Response, error) {
 
 	// Perform the POST request
 	res, err := client.Do(req)
-	utils.Check(err)
+	check(err)
 
 	return res, nil
+}
+
+func check(err error) {
+	if err != nil {
+		fmt.Println("Error:", err)
+
+		os.Exit(1)
+	}
 }
