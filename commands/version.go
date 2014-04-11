@@ -19,9 +19,7 @@ func init() {
 }
 
 func runVersion(cmd *Command, args *Args) {
-	neocitiesVersion := fmt.Sprintf("neocities version %s", Version)
-
-	fmt.Println(neocitiesVersion)
+	fmt.Println("neocities version", Version)
 
 	os.Exit(0)
 }
