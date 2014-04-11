@@ -1,5 +1,4 @@
 [![Cat!](https://neocities.org/assets/img/cat.png)](https://neocities.org/)
-
 A Neocities client written in Go
 ================================
 
@@ -53,5 +52,3 @@ Copyright (c) 2014 [Peter Hellberg](http://c7.se/)
 > LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 > OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 > WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-[![Construction barrier](http://www.textfiles.com/underconstruction/HoHotSpringsChalet3349constructionbarrier.gif)](http://www.textfiles.com/underconstruction/)
