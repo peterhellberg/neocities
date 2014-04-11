@@ -6,13 +6,13 @@ comfort of your own terminal.
 
 [![GoDoc](https://godoc.org/github.com/peterhellberg/neocities?status.png)](https://godoc.org/github.com/peterhellberg/neocities)
 
-[![Cat!](https://neocities.org/assets/img/cat.png)](https://neocities.org/)
-
 ## Installation
 
 If you have [Go](http://golang.org/) installed:
 
     go get -u github.com/peterhellberg/neocities
+
+[![Cat!](https://neocities.org/assets/img/cat.png)](https://neocities.org/)
 
 ## Usage
 
