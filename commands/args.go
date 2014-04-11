@@ -41,14 +41,3 @@ func (a *Args) FirstParam() string {
 
 	return a.Params[0]
 }
-
-// IndexOfParam returns the index of a param
-func (a *Args) IndexOfParam(param string) int {
-	for i, p := range a.Params {
-		if p == param {
-			return i
-		}
-	}
-
-	return -1
-}
