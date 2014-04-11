@@ -1,10 +1,10 @@
 package commands
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/peterhellberg/neocities/api"
-	"github.com/peterhellberg/neocities/utils"
 )
 
 var cmdUpload = &Command{
@@ -25,11 +25,11 @@ func runUpload(cmd *Command, args *Args) {
 	}
 
 	cred, err := getCredentials()
-	utils.Check(err)
+	check(err)
 
 	files := args.Params
 	response, err := api.UploadFiles(cred, files)
-	utils.Check(err)
+	check(err)
 
 	if os.Getenv("NEOCITIES_VERBOSE") != "false" {
 		response.Print()
@@ -43,4 +43,12 @@ func getCredentials() (*api.Credentials, error) {
 	pass := os.Getenv("NEOCITIES_PASS")
 
 	return &api.Credentials{User: user, Pass: pass}, nil
+}
+
+func check(err error) {
+	if err != nil {
+		fmt.Println("Error:", err)
+
+		os.Exit(1)
+	}
 }
