@@ -1,4 +1,4 @@
-package commands
+package client
 
 import (
 	. "github.com/smartystreets/goconvey/convey"
@@ -6,8 +6,8 @@ import (
 	"testing"
 )
 
-func TestArgs(t *testing.T) {
-	Convey("", t, func() {
+func TestRunner(t *testing.T) {
+	Convey("Runner", t, func() {
 
 	})
 }

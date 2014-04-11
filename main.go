@@ -25,11 +25,11 @@ package main
 import (
 	"os"
 
-	"github.com/peterhellberg/neocities/commands"
+	"github.com/peterhellberg/neocities/client"
 )
 
 func main() {
-	err := commands.CmdRunner.Execute()
+	err := client.CmdRunner.Execute()
 
 	os.Exit(err.ExitCode)
 }

@@ -1,4 +1,4 @@
-package commands
+package client
 
 import (
 	"fmt"
@@ -36,7 +36,7 @@ var helpText = `usage: neocities <command> [<args>]
 
 Commands:
    upload    Upload a file to Neocities
-   version   Show Neocities API client version
+   version   Show neocities client version
 
 Help for a specific command:
    help [command]

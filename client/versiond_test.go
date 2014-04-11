@@ -1,4 +1,4 @@
-package commands
+package client
 
 import (
 	. "github.com/smartystreets/goconvey/convey"
