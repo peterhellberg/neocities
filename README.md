@@ -1,4 +1,3 @@
-[![Cat!](https://neocities.org/assets/img/cat.png)](https://neocities.org/)
 A Neocities client written in Go
 ================================
 
@@ -6,6 +5,8 @@ Upload files to you [Neocities](https://neocities.org/) website from the
 comfort of your own terminal.
 
 [![GoDoc](https://godoc.org/github.com/peterhellberg/neocities?status.png)](https://godoc.org/github.com/peterhellberg/neocities)
+
+[![Cat!](https://neocities.org/assets/img/cat.png)](https://neocities.org/)
 
 ## Installation
 
