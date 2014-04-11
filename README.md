@@ -12,9 +12,9 @@ If you have [Go](http://golang.org/) installed:
 
     go get -u github.com/peterhellberg/neocities
 
-[![Cat!](https://neocities.org/assets/img/cat.png)](https://neocities.org/)
-
 ## Usage
+
+[![Cat!](https://neocities.org/assets/img/cat.png)](https://neocities.org/)
 
 First you need to set two environment variables:
 
