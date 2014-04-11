@@ -19,7 +19,7 @@ func TestNeocitiesCommand(t *testing.T) {
 		Convey("can output help for command", func() {
 			out, _ := execGo("run", "main.go", "help", "version")
 
-			expected := "Show the version number of the Neocities API client"
+			expected := "Show the version number of the neocities client"
 
 			So(out, ShouldContainSubstring, expected)
 		})

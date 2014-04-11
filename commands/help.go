@@ -9,7 +9,7 @@ var cmdHelp = &Command{
 	Run:   runHelp,
 	Usage: "help [command]",
 	Short: "Show help",
-	Long:  "Shows usage for a command.",
+	Long:  "Show usage instructions for a command",
 }
 
 func init() {

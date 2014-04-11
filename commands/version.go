@@ -11,7 +11,7 @@ var cmdVersion = &Command{
 	Run:   runVersion,
 	Usage: "version",
 	Short: "Show neocities version",
-	Long:  "Show the version number of the Neocities API client",
+	Long:  "Show the version number of the neocities client",
 }
 
 func init() {
