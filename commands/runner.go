@@ -1,14 +1,10 @@
 package commands
 
 import (
-	"flag"
 	"os"
-)
 
-type Credentials struct {
-	User string
-	Pass string
-}
+	flag "github.com/ogier/pflag"
+)
 
 type Runner struct {
 	commands map[string]*Command
