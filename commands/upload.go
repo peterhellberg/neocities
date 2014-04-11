@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -39,10 +40,23 @@ func runUpload(cmd *Command, args *Args) {
 }
 
 func getCredentials() (*api.Credentials, error) {
-	user := os.Getenv("NEOCITIES_USER")
-	pass := os.Getenv("NEOCITIES_PASS")
+	user, err := getenv("NEOCITIES_USER")
+	check(err)
+
+	pass, err := getenv("NEOCITIES_PASS")
+	check(err)
 
 	return &api.Credentials{User: user, Pass: pass}, nil
+}
+
+func getenv(variable string) (string, error) {
+	value := os.Getenv(variable)
+
+	if value == "" {
+		return value, errors.New("Missing environment variable " + variable)
+	}
+
+	return value, nil
 }
 
 func check(err error) {
