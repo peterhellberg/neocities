@@ -7,12 +7,15 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 const (
-	apiURL = "https://neocities.org/api/"
+	apiURL    = "https://neocities.org/api/"
+	userAgent = "neocities (Go 1.1 package http)"
 )
 
 // Credentials contains the username and password
@@ -24,27 +27,43 @@ type Credentials struct {
 // UploadFiles takes a set of credentials and
 // a list of filename paths to upload to Neocities.
 func UploadFiles(cred *Credentials, paths []string) (Response, error) {
-	req, err := prepareUploadPOSTRequest(cred, paths)
+	req, err := newUploadRequest(cred, paths)
 	check(err)
 
-	res, err := sendHTTPRequest(req)
-	check(err)
-
-	defer res.Body.Close()
-
-	var r Response
-
-	r.PopulateFromHTTPResponse(res)
-
-	if res.StatusCode == 200 {
-		return r, nil
-	}
-
-	return r, errors.New("unsuccessful")
+	return performHTTPRequest(req)
 }
 
-// Prepare upload POST request
-func prepareUploadPOSTRequest(cred *Credentials, paths []string) (*http.Request, error) {
+func DeleteFiles(cred *Credentials, filenames []string) (Response, error) {
+	data := url.Values{}
+
+	for _, file := range filenames {
+		data.Add("filenames[]", file)
+	}
+
+	req, err := newDeleteRequest(cred, data)
+	check(err)
+
+	return performHTTPRequest(req)
+}
+
+// Create a new delete request
+func newDeleteRequest(cred *Credentials, data url.Values) (*http.Request, error) {
+	req, err := http.NewRequest("POST", apiURL+"delete", strings.NewReader(data.Encode()))
+	if err != nil {
+		return req, err
+	}
+
+	// Authenticate using the user and pass
+	req.SetBasicAuth(cred.User, cred.Pass)
+
+	// Set the content type of the form data
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+	return req, nil
+}
+
+// Create a new upload request
+func newUploadRequest(cred *Credentials, paths []string) (*http.Request, error) {
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 
@@ -86,15 +105,36 @@ func prepareUploadPOSTRequest(cred *Credentials, paths []string) (*http.Request,
 	return req, nil
 }
 
+func performHTTPRequest(req *http.Request) (Response, error) {
+	res, err := sendHTTPRequest(req)
+	check(err)
+
+	defer res.Body.Close()
+
+	var r Response
+
+	r.PopulateFromHTTPResponse(res)
+
+	if res.StatusCode == 200 {
+		return r, nil
+	}
+
+	return r, errors.New("unsuccessful")
+}
+
 // Send HTTP request
 func sendHTTPRequest(req *http.Request) (*http.Response, error) {
 	// Create a HTTP client
 	client := &http.Client{}
 
-	// Perform the POST request
+	// Make sure that the correct User-Agent is set
+	req.Header.Add("User-Agent", userAgent)
+
+	// Send the request
 	res, err := client.Do(req)
 	check(err)
 
+	// Return the response
 	return res, nil
 }
 
