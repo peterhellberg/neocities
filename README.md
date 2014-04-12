@@ -24,8 +24,10 @@ Or, if you have [Go](http://golang.org/) installed:
 
 First you need to set two environment variables:
 
-    export NEOCITIES_USER=<user>
-    export NEOCITIES_PASS=<pass>
+```bash
+export NEOCITIES_USER=<user>
+export NEOCITIES_PASS=<pass>
+```
 
 Then you should be able to upload files to your website:
 
