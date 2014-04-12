@@ -33,7 +33,7 @@ func runDelete(cmd *Command, args *Args) {
 		os.Exit(1)
 	}
 
-	if os.Getenv("NEOCITIES_VERBOSE") != "false" {
+	if os.Getenv("NEOCITIES_VERBOSE") == "true" {
 		response.Print()
 	}
 
