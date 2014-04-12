@@ -25,6 +25,10 @@ Then you should be able to upload files to your website:
 
     neocities upload foo.html bar.js baz.jpg
 
+You can also delete files:
+
+		neocities delete foo.html
+
 ## Donate
 
 [![Support Neocities](https://neocities.org/assets/img/support-us.png)](https://neocities.org/donate)
