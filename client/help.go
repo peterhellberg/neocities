@@ -40,6 +40,12 @@ Commands:
 
 Help for a specific command:
    help [command]
+
+Environment setup:
+
+   export NEOCITIES_USER=<username>
+   export NEOCITIES_PASS=<password>
+
 `
 
 func printUsage() {
