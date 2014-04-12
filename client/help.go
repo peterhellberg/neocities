@@ -35,7 +35,8 @@ func runHelp(cmd *Command, args *Args) {
 var helpText = `usage: neocities <command> [<args>]
 
 Commands:
-   upload    Upload a file to Neocities
+   upload    Upload files to Neocities
+   delete    Delete files from Neocities
    version   Show neocities client version
 
 Help for a specific command:
