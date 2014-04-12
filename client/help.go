@@ -37,6 +37,7 @@ var helpText = `usage: neocities <command> [<args>]
 Commands:
    upload    Upload files to Neocities
    delete    Delete files from Neocities
+   info      Info about Neocities websites
    version   Show neocities client version
 
 Help for a specific command:

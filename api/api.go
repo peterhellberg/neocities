@@ -46,6 +46,34 @@ func DeleteFiles(cred *Credentials, filenames []string) (Response, error) {
 	return performHTTPRequest(req)
 }
 
+func SiteInfo(cred *Credentials, site string) (Response, error) {
+	req, err := newInfoRequest(cred, site)
+	check(err)
+
+	return performHTTPRequest(req)
+}
+
+// Create a new info request
+func newInfoRequest(cred *Credentials, site string) (*http.Request, error) {
+	endpoint := "info"
+
+	if site != "" {
+		endpoint = endpoint + "?sitename=" + site
+	}
+
+	req, err := http.NewRequest("GET", apiURL+endpoint, nil)
+	if err != nil {
+		return req, err
+	}
+
+	if cred != nil {
+		// Authenticate using the user and pass
+		req.SetBasicAuth(cred.User, cred.Pass)
+	}
+
+	return req, nil
+}
+
 // Create a new delete request
 func newDeleteRequest(cred *Credentials, data url.Values) (*http.Request, error) {
 	req, err := http.NewRequest("POST", apiURL+"delete", strings.NewReader(data.Encode()))

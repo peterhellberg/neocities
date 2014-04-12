@@ -12,6 +12,17 @@ type Response struct {
 	Result    string `json:"result"`
 	ErrorType string `json:"error_type"`
 	Message   string `json:"message"`
+	Info      Info
+	Body      []byte
+}
+
+type Info struct {
+	Sitename    string   `json:"sitename"`
+	Hits        int32    `json:"hits"`
+	CreatedAt   string   `json:"created_at"`
+	LastUpdated string   `json:"last_updated"`
+	Domain      string   `json:"domain"`
+	Tags        []string `json:"tags"`
 }
 
 // PopulateFromHTTPResponse use a HTTP response to populate itself
@@ -20,6 +31,9 @@ func (r *Response) PopulateFromHTTPResponse(res *http.Response) {
 	check(err)
 
 	err = json.Unmarshal(body, &r)
+
+	r.Body = body
+
 	check(err)
 }
 
