@@ -1,8 +1,6 @@
 package client
 
 import (
-	"errors"
-	"fmt"
 	"os"
 
 	"github.com/peterhellberg/neocities/api"
@@ -37,32 +35,4 @@ func runUpload(cmd *Command, args *Args) {
 	}
 
 	os.Exit(0)
-}
-
-func getCredentials() (*api.Credentials, error) {
-	user, err := getenv("NEOCITIES_USER")
-	check(err)
-
-	pass, err := getenv("NEOCITIES_PASS")
-	check(err)
-
-	return &api.Credentials{User: user, Pass: pass}, nil
-}
-
-func getenv(variable string) (string, error) {
-	value := os.Getenv(variable)
-
-	if value == "" {
-		return value, errors.New("Missing environment variable " + variable)
-	}
-
-	return value, nil
-}
-
-func check(err error) {
-	if err != nil {
-		fmt.Println("Error:", err)
-
-		os.Exit(1)
-	}
 }

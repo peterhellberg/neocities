@@ -1,10 +1,13 @@
 package client
 
 import (
+	"errors"
 	"fmt"
+	"os"
 	"strings"
 
 	flag "github.com/ogier/pflag"
+	"github.com/peterhellberg/neocities/api"
 )
 
 var (
@@ -74,4 +77,32 @@ func (c *Command) FormattedUsage() string {
 // Runnable checks if the command has a Run function
 func (c *Command) Runnable() bool {
 	return c.Run != nil
+}
+
+func getCredentials() (*api.Credentials, error) {
+	user, err := getenv("NEOCITIES_USER")
+	check(err)
+
+	pass, err := getenv("NEOCITIES_PASS")
+	check(err)
+
+	return &api.Credentials{User: user, Pass: pass}, nil
+}
+
+func getenv(variable string) (string, error) {
+	value := os.Getenv(variable)
+
+	if value == "" {
+		return value, errors.New("Missing environment variable " + variable)
+	}
+
+	return value, nil
+}
+
+func check(err error) {
+	if err != nil {
+		fmt.Println("Error:", err)
+
+		os.Exit(1)
+	}
 }
