@@ -35,6 +35,22 @@ You can also delete files:
 
     neocities delete foo.html
 
+You get a list of available commands by default:
+
+```bash
+$ neocities
+usage: neocities <command> [<args>]
+
+Commands:
+   upload    Upload files to Neocities
+   delete    Delete files from Neocities
+   info      Info about Neocities websites
+   version   Show neocities client version
+
+Help for a specific command:
+   help [command]
+```
+
 ## Donate
 
 [![Support Neocities](https://neocities.org/assets/img/support-us.png)](https://neocities.org/donate)
