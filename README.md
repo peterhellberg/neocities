@@ -8,7 +8,13 @@ comfort of your own terminal.
 
 ## Installation
 
-If you have [Go](http://golang.org/) installed:
+You can download precompiled binaries for
+[OS X (64 bit)](https://github.com/peterhellberg/neocities/releases/download/0.0.1/neocities-0.0.1-darwin-amd64.zip),
+[Linux (64 bit)](https://github.com/peterhellberg/neocities/releases/download/0.0.1/neocities-0.0.1-linux-amd64.zip),
+[Windows (32 bit)](https://github.com/peterhellberg/neocities/releases/download/0.0.1/neocities-0.0.1-windows-386.zip) and
+[Windows (64 bit)](https://github.com/peterhellberg/neocities/releases/download/0.0.1/neocities-0.0.1-windows-amd64.zip)
+
+Or, if you have [Go](http://golang.org/) installed:
 
     go get -u github.com/peterhellberg/neocities
 
