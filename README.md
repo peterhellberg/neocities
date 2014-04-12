@@ -33,7 +33,7 @@ Then you should be able to upload files to your website:
 
 You can also delete files:
 
-		neocities delete foo.html
+    neocities delete foo.html
 
 ## Donate
 
