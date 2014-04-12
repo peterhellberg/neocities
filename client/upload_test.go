@@ -21,7 +21,7 @@ func TestUpload(t *testing.T) {
 		})
 
 		Convey("Long", func() {
-			long := "Upload files to your Neocities account"
+			long := "Upload files to your Neocities website"
 			So(u.Long, ShouldEqual, long)
 		})
 	})

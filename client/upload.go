@@ -12,7 +12,7 @@ var cmdUpload = &Command{
 	Run:   runUpload,
 	Usage: "upload <filename> [<another filename>]",
 	Short: "Upload files to Neocities",
-	Long:  "Upload files to your Neocities account",
+	Long:  "Upload files to your Neocities website",
 }
 
 func init() {
