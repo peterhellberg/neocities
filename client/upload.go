@@ -28,7 +28,10 @@ func runUpload(cmd *Command, args *Args) {
 
 	files := args.Params
 	response, err := api.UploadFiles(cred, files)
-	check(err)
+	if err != nil {
+		response.Print()
+		os.Exit(1)
+	}
 
 	if os.Getenv("NEOCITIES_VERBOSE") != "false" {
 		response.Print()
