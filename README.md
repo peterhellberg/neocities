@@ -4,6 +4,7 @@ A Neocities client written in Go
 Upload files to you [Neocities](https://neocities.org/) website from the
 comfort of your own terminal.
 
+[![Build Status](https://travis-ci.org/peterhellberg/neocities.svg?branch=master)](https://travis-ci.org/peterhellberg/neocities)
 [![GoDoc](https://godoc.org/github.com/peterhellberg/neocities?status.png)](https://godoc.org/github.com/peterhellberg/neocities)
 
 ## Installation
