@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// Version contains the client version number
 const Version = "0.0.1"
 
 var cmdVersion = &Command{

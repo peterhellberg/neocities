@@ -33,6 +33,7 @@ func UploadFiles(cred *Credentials, paths []string) (Response, error) {
 	return performHTTPRequest(req)
 }
 
+// DeleteFiles deletes the given filenames
 func DeleteFiles(cred *Credentials, filenames []string) (Response, error) {
 	data := url.Values{}
 
@@ -46,6 +47,7 @@ func DeleteFiles(cred *Credentials, filenames []string) (Response, error) {
 	return performHTTPRequest(req)
 }
 
+// SiteInfo returns a site info response
 func SiteInfo(cred *Credentials, site string) (Response, error) {
 	req, err := newInfoRequest(cred, site)
 	check(err)
