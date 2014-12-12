@@ -16,6 +16,7 @@ type Response struct {
 	Body      []byte
 }
 
+// Info contains the properties for a site
 type Info struct {
 	Sitename    string   `json:"sitename"`
 	Hits        int32    `json:"hits"`
