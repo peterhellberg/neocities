@@ -8,7 +8,7 @@ import (
 
 func TestVersion(t *testing.T) {
 	Convey("Version", t, func() {
-		So(Version, ShouldEqual, "0.0.1")
+		So(Version, ShouldEqual, "0.0.2")
 
 		v := cmdVersion
 
