@@ -9,7 +9,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"path/filepath"
 	"strings"
 )
 
@@ -107,8 +106,7 @@ func newUploadRequest(cred *Credentials, paths []string) (*http.Request, error) 
 			return nil, err
 		}
 
-		base := filepath.Base(path)
-		part, err := writer.CreateFormFile(base, base)
+		part, err := writer.CreateFormFile(path, path)
 
 		if err != nil {
 			return nil, err
