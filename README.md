@@ -11,10 +11,10 @@ comfort of your own terminal.
 ## Installation
 
 You can download precompiled binaries for
-[OS X](https://github.com/peterhellberg/neocities/releases/download/0.0.1/neocities-0.0.1-darwin-amd64.zip),
-[Linux](https://github.com/peterhellberg/neocities/releases/download/0.0.1/neocities-0.0.1-linux-amd64.zip),
-[Windows (32 bit)](https://github.com/peterhellberg/neocities/releases/download/0.0.1/neocities-0.0.1-windows-386.zip) and
-[Windows (64 bit)](https://github.com/peterhellberg/neocities/releases/download/0.0.1/neocities-0.0.1-windows-amd64.zip)
+[OS X](https://github.com/peterhellberg/neocities/releases/download/0.0.2/neocities-0.0.2-darwin-amd64.zip),
+[Linux](https://github.com/peterhellberg/neocities/releases/download/0.0.2/neocities-0.0.2-linux-amd64.zip),
+[Windows (32 bit)](https://github.com/peterhellberg/neocities/releases/download/0.0.2/neocities-0.0.2-windows-386.zip) and
+[Windows (64 bit)](https://github.com/peterhellberg/neocities/releases/download/0.0.2/neocities-0.0.2-windows-amd64.zip)
 
 Or, if you have [Go](http://golang.org/) installed:
 
