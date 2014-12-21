@@ -33,11 +33,11 @@ export NEOCITIES_PASS=<pass>
 
 Then you should be able to upload files to your website:
 
-    neocities upload foo.html bar.js baz.jpg
+    neocities upload foo.html bar.js folder/baz.jpg
 
 You can also delete files:
 
-    neocities delete foo.html
+    neocities delete foo.html folder/baz.jpg
 
 You get a list of available commands by default:
 
