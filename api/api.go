@@ -14,7 +14,7 @@ import (
 
 const (
 	apiURL    = "https://neocities.org/api/"
-	userAgent = "neocities (Go 1.1 package http)"
+	userAgent = "neocities (Go 1.4.2 package http)"
 )
 
 // Credentials contains the username and password
@@ -34,13 +34,7 @@ func UploadFiles(cred *Credentials, paths []string) (Response, error) {
 
 // DeleteFiles deletes the given filenames
 func DeleteFiles(cred *Credentials, filenames []string) (Response, error) {
-	data := url.Values{}
-
-	for _, file := range filenames {
-		data.Add("filenames[]", file)
-	}
-
-	req, err := newDeleteRequest(cred, data)
+	req, err := newDeleteRequest(cred, filenames)
 	check(err)
 
 	return performHTTPRequest(req)
@@ -76,7 +70,13 @@ func newInfoRequest(cred *Credentials, site string) (*http.Request, error) {
 }
 
 // Create a new delete request
-func newDeleteRequest(cred *Credentials, data url.Values) (*http.Request, error) {
+func newDeleteRequest(cred *Credentials, filenames []string) (*http.Request, error) {
+	data := url.Values{}
+
+	for _, file := range filenames {
+		data.Add("filenames[]", file)
+	}
+
 	req, err := http.NewRequest("POST", apiURL+"delete", strings.NewReader(data.Encode()))
 	if err != nil {
 		return req, err
