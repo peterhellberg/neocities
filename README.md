@@ -22,7 +22,7 @@ Or, if you have [Go](http://golang.org/) installed:
 
 ## Usage
 
-[![Cat!](https://neocities.org/assets/img/cat.png)](https://neocities.org/)
+[![Cat!](https://neocities.org/img/cat.png)](https://neocities.org/)
 
 First you need to set two environment variables:
 
@@ -57,13 +57,13 @@ Help for a specific command:
 
 ## Donate
 
-[![Support Neocities](https://neocities.org/assets/img/support-us.png)](https://neocities.org/donate)
+[![Support Neocities](https://neocities.org/img/support-us.png)](https://neocities.org/donate)
 
 NeoCities is funded by donations. If you’d like to contribute, you can help to pay for server costs using Bitcoin or PayPal.
 
 ## License (MIT)
 
-Copyright (c) 2015 [Peter Hellberg](http://c7.se/)
+Copyright (c) 2014-2015 [Peter Hellberg](http://c7.se/)
 
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
