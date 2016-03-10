@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -93,27 +94,35 @@ func newDeleteRequest(cred *Credentials, filenames []string) (*http.Request, err
 
 // Create a new upload request
 func newUploadRequest(cred *Credentials, paths []string) (*http.Request, error) {
+	fmt.Println("starting upload request")
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 
 	// Add the contents of each file to the multipart body
 	for _, path := range paths {
-		file, err := os.Open(path)
+		filepath.Walk(path, func(p string, info os.FileInfo, err error) error {
+			if p == path || info.IsDir() {
+				return nil
+			}
 
-		defer file.Close()
+			file, err := os.Open(p)
 
-		if err != nil {
-			return nil, err
-		}
+			defer file.Close()
 
-		part, err := writer.CreateFormFile(path, path)
+			if err != nil {
+				return err
+			}
 
-		if err != nil {
-			return nil, err
-		}
+			part, err := writer.CreateFormFile(p, p)
 
-		_, err = io.Copy(part, file)
-		check(err)
+			if err != nil {
+				return err
+			}
+
+			_, err = io.Copy(part, file)
+			check(err)
+			return nil
+		})
 	}
 
 	err := writer.Close()
