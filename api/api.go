@@ -101,7 +101,7 @@ func newUploadRequest(cred *Credentials, paths []string) (*http.Request, error) 
 	// Add the contents of each file to the multipart body
 	for _, path := range paths {
 		filepath.Walk(path, func(p string, info os.FileInfo, err error) error {
-			if p == path || info.IsDir() {
+			if info.IsDir() {
 				return nil
 			}
 
