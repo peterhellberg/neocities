@@ -94,7 +94,6 @@ func newDeleteRequest(cred *Credentials, filenames []string) (*http.Request, err
 
 // Create a new upload request
 func newUploadRequest(cred *Credentials, paths []string) (*http.Request, error) {
-	fmt.Println("starting upload request")
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 
