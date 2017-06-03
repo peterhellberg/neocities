@@ -1,6 +1,8 @@
 package api
 
 import (
+	"io/ioutil"
+
 	. "github.com/smartystreets/goconvey/convey"
 
 	"testing"
@@ -33,6 +35,16 @@ func TestAPI(t *testing.T) {
 
 		Convey("newUploadRequest", func() {
 			req, err := newUploadRequest(cred, []string{"../LICENSE"})
+
+			So(err, ShouldBeNil)
+			So(req.Method, ShouldEqual, "POST")
+			So(req.URL.String(), ShouldEqual, "https://neocities.org/api/upload")
+		})
+
+		Convey("newUploadDataRequest", func() {
+			testContent, err := ioutil.ReadFile("../LICENSE")
+			testData := []UploadData{UploadData{FileName: "LICENSE_string", Content: testContent}}
+			req, err := newUploadDataRequest(cred, testData)
 
 			So(err, ShouldBeNil)
 			So(req.Method, ShouldEqual, "POST")
