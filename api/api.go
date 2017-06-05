@@ -39,8 +39,8 @@ func UploadFiles(cred *Credentials, paths []string) (Response, error) {
 	return performHTTPRequest(req)
 }
 
-func UploadDatas(cred *Credentials, datas []UploadData) (Response, error) {
-	req, err := newUploadDataRequest(cred, datas)
+func UploadDatas(cred *Credentials, data []UploadData) (Response, error) {
+	req, err := newUploadDataRequest(cred, data)
 	check(err)
 
 	return performHTTPRequest(req)
@@ -155,16 +155,16 @@ func newUploadRequest(cred *Credentials, paths []string) (*http.Request, error) 
 }
 
 // Create a new upload data request
-func newUploadDataRequest(cred *Credentials, datas []UploadData) (*http.Request, error) {
+func newUploadDataRequest(cred *Credentials, data []UploadData) (*http.Request, error) {
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 
 	// Add the contents of each file to the multipart body
-	for _, data := range datas {
-		part, err := writer.CreateFormFile(data.FileName, data.FileName)
+	for _, d := range data {
+		part, err := writer.CreateFormFile(d.FileName, d.FileName)
 		check(err)
 
-		_, err = part.Write(data.Content)
+		_, err = part.Write(d.Content)
 		check(err)
 	}
 
