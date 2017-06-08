@@ -24,10 +24,23 @@ type Credentials struct {
 	Pass string
 }
 
+// UploadData contains the filename and content
+type UploadData struct {
+	FileName string
+	Content  []byte
+}
+
 // UploadFiles takes a set of credentials and
 // a list of filename paths to upload to Neocities.
 func UploadFiles(cred *Credentials, paths []string) (Response, error) {
 	req, err := newUploadRequest(cred, paths)
+	check(err)
+
+	return performHTTPRequest(req)
+}
+
+func Upload(cred *Credentials, data []UploadData) (Response, error) {
+	req, err := newUploadDataRequest(cred, data)
 	check(err)
 
 	return performHTTPRequest(req)
@@ -122,6 +135,37 @@ func newUploadRequest(cred *Credentials, paths []string) (*http.Request, error) 
 			check(err)
 			return nil
 		})
+	}
+
+	err := writer.Close()
+	check(err)
+
+	req, err := http.NewRequest("POST", apiURL+"upload", body)
+	if err != nil {
+		return req, err
+	}
+
+	// Authenticate using the user and pass
+	req.SetBasicAuth(cred.User, cred.Pass)
+
+	// Set the content type of the form data
+	req.Header.Add("Content-Type", writer.FormDataContentType())
+
+	return req, nil
+}
+
+// Create a new upload data request
+func newUploadDataRequest(cred *Credentials, data []UploadData) (*http.Request, error) {
+	body := &bytes.Buffer{}
+	writer := multipart.NewWriter(body)
+
+	// Add the contents of each file to the multipart body
+	for _, d := range data {
+		part, err := writer.CreateFormFile(d.FileName, d.FileName)
+		check(err)
+
+		_, err = part.Write(d.Content)
+		check(err)
 	}
 
 	err := writer.Close()
