@@ -39,7 +39,7 @@ func UploadFiles(cred *Credentials, paths []string) (Response, error) {
 	return performHTTPRequest(req)
 }
 
-func UploadDatas(cred *Credentials, data []UploadData) (Response, error) {
+func Upload(cred *Credentials, data []UploadData) (Response, error) {
 	req, err := newUploadDataRequest(cred, data)
 	check(err)
 
