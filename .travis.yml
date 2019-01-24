@@ -1,9 +1,8 @@
 language: go
 
-sudo: false
+dist: xenial
 
-go:
-  - 1.6
+go: "1.11.5"
 
 install:
   - go get github.com/ogier/pflag
