@@ -125,7 +125,7 @@ func newUploadRequest(cred *Credentials, paths []string) (*http.Request, error) 
 				return err
 			}
 
-			part, err := writer.CreateFormFile(p, p)
+			part, err := writer.CreateFormFile(strings.Replace(p, "\\", "/", -1), p)
 
 			if err != nil {
 				return err
