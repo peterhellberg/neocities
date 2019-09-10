@@ -28,17 +28,19 @@ func newUploadRequest(a Authenticator, paths []string) (*http.Request, error) {
 	// Add the contents of each file to the multipart body
 	for _, path := range paths {
 		filepath.Walk(path, func(p string, info os.FileInfo, err error) error {
+			if info == nil {
+				return nil
+			}
+
 			if info.IsDir() {
 				return nil
 			}
 
 			file, err := os.Open(p)
-
-			defer file.Close()
-
 			if err != nil {
 				return err
 			}
+			defer file.Close()
 
 			part, err := writer.CreateFormFile(p, p)
 
