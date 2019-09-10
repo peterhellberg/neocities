@@ -12,6 +12,7 @@ type Args struct {
 func newArgs(args []string) *Args {
 	var command string
 	var params []string
+
 	if len(args) == 0 {
 		params = []string{}
 	} else {
@@ -19,7 +20,10 @@ func newArgs(args []string) *Args {
 		params = args[1:]
 	}
 
-	return &Args{Command: command, Params: params}
+	return &Args{
+		Command: command,
+		Params:  params,
+	}
 }
 
 // IsParamsEmpty checks if the params size is 0
