@@ -89,7 +89,7 @@ func getCredentials() api.Credentials {
 	pass := os.Getenv("NEOCITIES_PASS")
 
 	if user == "" {
-		fmt.Println("Error: Missing environment variable NEOCITIES_USER")
+		fmt.Println("Error: Missing environment variable NEOCITIES_USER or NEOCITIES_KEY")
 
 		os.Exit(0)
 	}
