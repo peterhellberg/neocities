@@ -19,7 +19,7 @@ func (c Credentials) Authenticate(r *http.Request) {
 	}
 
 	if c.Key != "" {
-		r.Header.Set("Authorization", "Bearer: "+c.Key)
+		r.Header.Set("Authorization", "Bearer "+c.Key)
 		return
 	}
 
