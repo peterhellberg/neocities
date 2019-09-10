@@ -32,6 +32,7 @@ func (r *Response) PopulateFromHTTPResponse(res *http.Response) error {
 	if err != nil {
 		return err
 	}
+	defer res.Body.Close()
 
 	err = json.Unmarshal(body, &r)
 
