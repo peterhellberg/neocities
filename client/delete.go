@@ -20,16 +20,18 @@ func init() {
 func runDelete(cmd *Command, args *Args) {
 	if args.IsParamsEmpty() {
 		cmd.PrintUsage()
+
 		os.Exit(0)
 	}
 
-	cred, err := getCredentials()
-	check(err)
+	cred := getCredentials()
 
 	files := args.Params
+
 	response, err := api.DeleteFiles(cred, files)
 	if err != nil {
 		response.Print()
+
 		os.Exit(1)
 	}
 

@@ -6,7 +6,7 @@ import (
 )
 
 func TestAPI(t *testing.T) {
-	cred := &Credentials{"foo", "bar"}
+	cred := Credentials{User: "foo", Pass: "bar", Key: "baz"}
 
 	t.Run("expected constants", func(t *testing.T) {
 		if got, want := apiURL, "https://neocities.org/api/"; got != want {

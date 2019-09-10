@@ -19,12 +19,13 @@ func init() {
 }
 
 func runInfo(cmd *Command, args *Args) {
-	var site string
-	var cred *api.Credentials
+	var (
+		site string
+		cred api.Credentials
+	)
 
 	if args.IsParamsEmpty() {
-		cred, err := getCredentials()
-		check(err)
+		cred = getCredentials()
 		site = cred.User
 	} else {
 		site = args.FirstParam()
@@ -33,6 +34,7 @@ func runInfo(cmd *Command, args *Args) {
 	response, err := api.SiteInfo(cred, site)
 	if err != nil {
 		response.Print()
+
 		os.Exit(1)
 	}
 

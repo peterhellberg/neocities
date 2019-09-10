@@ -1,7 +1,6 @@
 package client
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"strings"
@@ -35,6 +34,7 @@ func (c *Command) Name() string {
 	if c.Key != "" {
 		return c.Key
 	}
+
 	return strings.Split(c.Usage, " ")[0]
 }
 
@@ -80,30 +80,28 @@ func (c *Command) Runnable() bool {
 	return c.Run != nil
 }
 
-func getCredentials() (*api.Credentials, error) {
-	user, err := getenv("NEOCITIES_USER")
-	check(err)
-
-	pass, err := getenv("NEOCITIES_PASS")
-	check(err)
-
-	return &api.Credentials{User: user, Pass: pass}, nil
-}
-
-func getenv(variable string) (string, error) {
-	value := os.Getenv(variable)
-
-	if value == "" {
-		return value, errors.New("Missing environment variable " + variable)
+func getCredentials() api.Credentials {
+	if key := os.Getenv("NEOCITIES_KEY"); key != "" {
+		return api.Credentials{Key: key}
 	}
 
-	return value, nil
-}
+	user := os.Getenv("NEOCITIES_USER")
+	pass := os.Getenv("NEOCITIES_PASS")
 
-func check(err error) {
-	if err != nil {
-		fmt.Println("Error:", err)
+	if user == "" {
+		fmt.Println("Error: Missing environment variable NEOCITIES_USER")
 
-		os.Exit(1)
+		os.Exit(0)
+	}
+
+	if pass == "" {
+		fmt.Println("Error: Missing environment variable NEOCITIES_PASS")
+
+		os.Exit(0)
+	}
+
+	return api.Credentials{
+		User: user,
+		Pass: pass,
 	}
 }

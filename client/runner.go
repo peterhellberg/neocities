@@ -13,7 +13,9 @@ type Runner struct {
 
 // NewRunner creates a new Runner
 func NewRunner() *Runner {
-	return &Runner{commands: make(map[string]*Command)}
+	return &Runner{
+		commands: make(map[string]*Command),
+	}
 }
 
 // All returns all commands

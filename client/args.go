@@ -1,7 +1,5 @@
 package client
 
-import "fmt"
-
 // Args contains a command and its params
 type Args struct {
 	Command string
@@ -10,8 +8,10 @@ type Args struct {
 
 // newArgs creates a new Args using a list of strings
 func newArgs(args []string) *Args {
-	var command string
-	var params []string
+	var (
+		command string
+		params  []string
+	)
 
 	if len(args) == 0 {
 		params = []string{}
@@ -37,10 +37,10 @@ func (a *Args) ParamsSize() int {
 }
 
 // FirstParam returns the first param.
-// It panics if there are no params
+// It returns empty string if there are no params.
 func (a *Args) FirstParam() string {
 	if a.ParamsSize() == 0 {
-		panic(fmt.Sprintf("Index 0 is out of bound"))
+		return ""
 	}
 
 	return a.Params[0]
