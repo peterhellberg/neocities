@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 // UploadFiles takes a set of credentials and
@@ -42,7 +43,7 @@ func newUploadRequest(a Authenticator, paths []string) (*http.Request, error) {
 			}
 			defer file.Close()
 
-			part, err := writer.CreateFormFile(p, p)
+			part, err := writer.CreateFormFile(strings.Replace(p, "\\", "/", -1), p)
 
 			if err != nil {
 				return err
