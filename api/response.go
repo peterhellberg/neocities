@@ -27,22 +27,26 @@ type Info struct {
 }
 
 // PopulateFromHTTPResponse use a HTTP response to populate itself
-func (r *Response) PopulateFromHTTPResponse(res *http.Response) {
+func (r *Response) PopulateFromHTTPResponse(res *http.Response) error {
 	body, err := ioutil.ReadAll(res.Body)
-	check(err)
+	if err != nil {
+		return err
+	}
 
 	err = json.Unmarshal(body, &r)
 
 	r.Body = body
 
-	check(err)
+	return err
 }
 
 // Print is printing the contents of the response to stdout
 func (r *Response) Print() {
 	fmt.Println("Result:   ", r.Result)
+
 	if r.ErrorType != "" {
 		fmt.Println("ErrorType:", r.ErrorType)
 	}
+
 	fmt.Println("Message:  ", r.Message)
 }

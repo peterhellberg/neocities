@@ -3,7 +3,6 @@ package api
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -34,14 +33,18 @@ type UploadData struct {
 // a list of filename paths to upload to Neocities.
 func UploadFiles(cred *Credentials, paths []string) (Response, error) {
 	req, err := newUploadRequest(cred, paths)
-	check(err)
+	if err != nil {
+		return Response{}, err
+	}
 
 	return performHTTPRequest(req)
 }
 
 func Upload(cred *Credentials, data []UploadData) (Response, error) {
 	req, err := newUploadDataRequest(cred, data)
-	check(err)
+	if err != nil {
+		return Response{}, err
+	}
 
 	return performHTTPRequest(req)
 }
@@ -49,7 +52,9 @@ func Upload(cred *Credentials, data []UploadData) (Response, error) {
 // DeleteFiles deletes the given filenames
 func DeleteFiles(cred *Credentials, filenames []string) (Response, error) {
 	req, err := newDeleteRequest(cred, filenames)
-	check(err)
+	if err != nil {
+		return Response{}, err
+	}
 
 	return performHTTPRequest(req)
 }
@@ -57,7 +62,9 @@ func DeleteFiles(cred *Credentials, filenames []string) (Response, error) {
 // SiteInfo returns a site info response
 func SiteInfo(cred *Credentials, site string) (Response, error) {
 	req, err := newInfoRequest(cred, site)
-	check(err)
+	if err != nil {
+		return Response{}, err
+	}
 
 	return performHTTPRequest(req)
 }
@@ -131,18 +138,21 @@ func newUploadRequest(cred *Credentials, paths []string) (*http.Request, error) 
 				return err
 			}
 
-			_, err = io.Copy(part, file)
-			check(err)
+			if _, err := io.Copy(part, file); err != nil {
+				return err
+			}
+
 			return nil
 		})
 	}
 
-	err := writer.Close()
-	check(err)
+	if err := writer.Close(); err != nil {
+		return nil, err
+	}
 
 	req, err := http.NewRequest("POST", apiURL+"upload", body)
 	if err != nil {
-		return req, err
+		return nil, err
 	}
 
 	// Authenticate using the user and pass
@@ -162,14 +172,18 @@ func newUploadDataRequest(cred *Credentials, data []UploadData) (*http.Request, 
 	// Add the contents of each file to the multipart body
 	for _, d := range data {
 		part, err := writer.CreateFormFile(d.FileName, d.FileName)
-		check(err)
+		if err != nil {
+			return nil, err
+		}
 
-		_, err = part.Write(d.Content)
-		check(err)
+		if _, err = part.Write(d.Content); err != nil {
+			return nil, err
+		}
 	}
 
-	err := writer.Close()
-	check(err)
+	if err := writer.Close(); err != nil {
+		return nil, err
+	}
 
 	req, err := http.NewRequest("POST", apiURL+"upload", body)
 	if err != nil {
@@ -187,19 +201,22 @@ func newUploadDataRequest(cred *Credentials, data []UploadData) (*http.Request, 
 
 func performHTTPRequest(req *http.Request) (Response, error) {
 	res, err := sendHTTPRequest(req)
-	check(err)
-
+	if err != nil {
+		return Response{}, err
+	}
 	defer res.Body.Close()
 
 	var r Response
 
-	r.PopulateFromHTTPResponse(res)
-
-	if res.StatusCode == 200 {
-		return r, nil
+	if err := r.PopulateFromHTTPResponse(res); err != nil {
+		return r, err
 	}
 
-	return r, errors.New("unsuccessful")
+	if res.StatusCode != 200 {
+		return r, errors.New("unsuccessful")
+	}
+
+	return r, nil
 }
 
 // Send HTTP request
@@ -210,18 +227,6 @@ func sendHTTPRequest(req *http.Request) (*http.Response, error) {
 	// Make sure that the correct User-Agent is set
 	req.Header.Add("User-Agent", userAgent)
 
-	// Send the request
-	res, err := client.Do(req)
-	check(err)
-
-	// Return the response
-	return res, nil
-}
-
-func check(err error) {
-	if err != nil {
-		fmt.Println("Error:", err)
-
-		os.Exit(1)
-	}
+	// Send the request and return the response
+	return client.Do(req)
 }
