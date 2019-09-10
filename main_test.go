@@ -1,54 +1,57 @@
 package main
 
 import (
-	. "github.com/smartystreets/goconvey/convey"
-
 	"os"
 	"os/exec"
+	"strings"
 	"testing"
 )
 
 func TestNeocitiesCommand(t *testing.T) {
-	Convey("neocities", t, func() {
-		Convey("outputs usage instructions if no args", func() {
-			out, _ := execGo("run", "main.go")
+	t.Run("outputs usage instructions if no args", func(t *testing.T) {
+		out := execGo("run", "main.go")
+		expected := "neocities <command> [<args>]"
 
-			So(out, ShouldContainSubstring, "neocities <command> [<args>]")
-		})
+		if !strings.Contains(out, expected) {
+			t.Fatalf("%q does not contain %q", out, expected)
+		}
+	})
 
-		Convey("can output help for command", func() {
-			out, _ := execGo("run", "main.go", "help", "version")
+	t.Run("can output help for command", func(t *testing.T) {
+		out := execGo("run", "main.go", "help", "version")
+		expected := "Show the version number of the neocities client"
 
-			expected := "Show the version number of the neocities client"
+		if !strings.Contains(out, expected) {
+			t.Fatalf("%q does not contain %q", out, expected)
+		}
+	})
 
-			So(out, ShouldContainSubstring, expected)
-		})
+	t.Run("outputs note about missing NEOCITIES_USER variable", func(t *testing.T) {
+		os.Setenv("NEOCITIES_USER", "")
 
-		Convey("outputs note about missing NEOCITIES_USER variable", func() {
-			os.Setenv("NEOCITIES_USER", "")
+		out := execGo("run", "main.go", "upload", "LICENSE")
+		expected := "Error: Missing environment variable NEOCITIES_USER"
 
-			out, _ := execGo("run", "main.go", "upload", "LICENSE")
+		if !strings.Contains(out, expected) {
+			t.Fatalf("%q does not contain %q", out, expected)
+		}
+	})
 
-			expected := "Error: Missing environment variable NEOCITIES_USER"
+	t.Run("outputs note about missing NEOCITIES_PASS variable", func(t *testing.T) {
+		os.Setenv("NEOCITIES_USER", "foo")
+		os.Setenv("NEOCITIES_PASS", "")
 
-			So(out, ShouldContainSubstring, expected)
-		})
+		out := execGo("run", "main.go", "upload", "LICENSE")
+		expected := "Error: Missing environment variable NEOCITIES_PASS"
 
-		Convey("outputs note about missing NEOCITIES_PASS variable", func() {
-			os.Setenv("NEOCITIES_USER", "foo")
-			os.Setenv("NEOCITIES_PASS", "")
-
-			out, _ := execGo("run", "main.go", "upload", "LICENSE")
-
-			expected := "Error: Missing environment variable NEOCITIES_PASS"
-
-			So(out, ShouldContainSubstring, expected)
-		})
+		if !strings.Contains(out, expected) {
+			t.Fatalf("%q does not contain %q", out, expected)
+		}
 	})
 }
 
-func execGo(args ...string) (string, error) {
-	out, err := exec.Command("go", args...).CombinedOutput()
+func execGo(args ...string) string {
+	out, _ := exec.Command("go", args...).CombinedOutput()
 
-	return string(out), err
+	return string(out)
 }

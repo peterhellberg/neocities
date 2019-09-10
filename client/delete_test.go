@@ -1,28 +1,21 @@
 package client
 
-import (
-	. "github.com/smartystreets/goconvey/convey"
-
-	"testing"
-)
+import "testing"
 
 func TestDelete(t *testing.T) {
-	Convey("Delete", t, func() {
+	t.Run("cmdDelete", func(t *testing.T) {
 		d := cmdDelete
 
-		Convey("Usage", func() {
-			usage := "delete <filename> [<another filename>]"
-			So(d.Usage, ShouldEqual, usage)
-		})
+		if got, want := d.Usage, "delete <filename> [<another filename>]"; got != want {
+			t.Fatalf("d.Usage = %q, want %q", got, want)
+		}
 
-		Convey("Short", func() {
-			short := "Delete files from Neocities"
-			So(d.Short, ShouldEqual, short)
-		})
+		if got, want := d.Short, "Delete files from Neocities"; got != want {
+			t.Fatalf("d.Short = %q, want %q", got, want)
+		}
 
-		Convey("Long", func() {
-			long := "Delete files from your Neocities website"
-			So(d.Long, ShouldEqual, long)
-		})
+		if got, want := d.Long, "Delete files from your Neocities website"; got != want {
+			t.Fatalf("d.Long = %q, want %q", got, want)
+		}
 	})
 }

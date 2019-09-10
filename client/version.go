@@ -6,7 +6,7 @@ import (
 )
 
 // Version contains the client version number
-const Version = "0.0.2"
+const Version = "0.0.3"
 
 var cmdVersion = &Command{
 	Run:   runVersion,

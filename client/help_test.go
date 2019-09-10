@@ -1,28 +1,21 @@
 package client
 
-import (
-	. "github.com/smartystreets/goconvey/convey"
-
-	"testing"
-)
+import "testing"
 
 func TestHelp(t *testing.T) {
-	Convey("Help", t, func() {
+	t.Run("cmdHelp", func(t *testing.T) {
 		h := cmdHelp
 
-		Convey("Usage", func() {
-			usage := "help [command]"
-			So(h.Usage, ShouldEqual, usage)
-		})
+		if got, want := h.Usage, "help [command]"; got != want {
+			t.Fatalf("h.Usage = %q, want %q", got, want)
+		}
 
-		Convey("Short", func() {
-			short := "Show help"
-			So(h.Short, ShouldEqual, short)
-		})
+		if got, want := h.Short, "Show help"; got != want {
+			t.Fatalf("h.Short = %q, want %q", got, want)
+		}
 
-		Convey("Long", func() {
-			long := "Show usage instructions for a command"
-			So(h.Long, ShouldEqual, long)
-		})
+		if got, want := h.Long, "Show usage instructions for a command"; got != want {
+			t.Fatalf("h.Long = %q, want %q", got, want)
+		}
 	})
 }

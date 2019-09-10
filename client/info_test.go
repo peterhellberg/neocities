@@ -1,28 +1,21 @@
 package client
 
-import (
-	. "github.com/smartystreets/goconvey/convey"
-
-	"testing"
-)
+import "testing"
 
 func TestInfo(t *testing.T) {
-	Convey("Info", t, func() {
+	t.Run("cmdInfo", func(t *testing.T) {
 		i := cmdInfo
 
-		Convey("Usage", func() {
-			usage := "info [sitename]"
-			So(i.Usage, ShouldEqual, usage)
-		})
+		if got, want := i.Usage, "info [sitename]"; got != want {
+			t.Fatalf("i.Usage = %q, want %q", got, want)
+		}
 
-		Convey("Short", func() {
-			short := "Info about Neocities websites"
-			So(i.Short, ShouldEqual, short)
-		})
+		if got, want := i.Short, "Info about Neocities websites"; got != want {
+			t.Fatalf("i.Short = %q, want %q", got, want)
+		}
 
-		Convey("Long", func() {
-			long := "Info about your Neocities website, or somebody elses"
-			So(i.Long, ShouldEqual, long)
-		})
+		if got, want := i.Long, "Info about your Neocities website, or somebody elses"; got != want {
+			t.Fatalf("i.Long = %q, want %q", got, want)
+		}
 	})
 }

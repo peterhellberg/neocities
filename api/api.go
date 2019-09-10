@@ -15,7 +15,7 @@ import (
 
 const (
 	apiURL    = "https://neocities.org/api/"
-	userAgent = "neocities (Go 1.4.2 package http)"
+	userAgent = "neocities (Go package using net/http)"
 )
 
 // Credentials contains the username and password

@@ -2,53 +2,91 @@ package api
 
 import (
 	"io/ioutil"
-
-	. "github.com/smartystreets/goconvey/convey"
-
 	"testing"
 )
 
 func TestAPI(t *testing.T) {
-	Convey("API", t, func() {
-		cred := &Credentials{"foo", "bar"}
+	cred := &Credentials{"foo", "bar"}
 
-		Convey("expected constants", func() {
-			So(apiURL, ShouldEqual, "https://neocities.org/api/")
-			So(userAgent, ShouldEqual, "neocities (Go 1.4.2 package http)")
-		})
+	t.Run("expected constants", func(t *testing.T) {
+		if got, want := apiURL, "https://neocities.org/api/"; got != want {
+			t.Fatalf("apiURL = %q, want %q", got, want)
+		}
 
-		Convey("newInfoRequest", func() {
-			req, err := newInfoRequest(cred, "foo")
+		if got, want := userAgent, "neocities (Go package using net/http)"; got != want {
+			t.Fatalf("userAgent = %q, want %q", got, want)
+		}
+	})
 
-			So(err, ShouldBeNil)
-			So(req.Method, ShouldEqual, "GET")
-			So(req.URL.String(), ShouldEqual, "https://neocities.org/api/info?sitename=foo")
-		})
+	t.Run("newInfoRequest", func(t *testing.T) {
+		req, err := newInfoRequest(cred, "foo")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
 
-		Convey("newDeleteRequest", func() {
-			req, err := newDeleteRequest(cred, []string{"foo", "bar"})
+		if got, want := req.Method, "GET"; got != want {
+			t.Fatalf("req.Method = %q, want %q", got, want)
+		}
 
-			So(err, ShouldBeNil)
-			So(req.Method, ShouldEqual, "POST")
-			So(req.URL.String(), ShouldEqual, "https://neocities.org/api/delete")
-		})
+		if got, want := req.URL.String(), "https://neocities.org/api/info?sitename=foo"; got != want {
+			t.Fatalf("req.URL.String() = %q, want %q", got, want)
+		}
+	})
 
-		Convey("newUploadRequest", func() {
-			req, err := newUploadRequest(cred, []string{"../LICENSE"})
+	t.Run("newDeleteRequest", func(t *testing.T) {
+		req, err := newDeleteRequest(cred, []string{"foo", "bar"})
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
 
-			So(err, ShouldBeNil)
-			So(req.Method, ShouldEqual, "POST")
-			So(req.URL.String(), ShouldEqual, "https://neocities.org/api/upload")
-		})
+		if got, want := req.Method, "POST"; got != want {
+			t.Fatalf("req.Method = %q, want %q", got, want)
+		}
 
-		Convey("newUploadDataRequest", func() {
-			testContent, err := ioutil.ReadFile("../LICENSE")
-			testData := []UploadData{UploadData{FileName: "LICENSE_string", Content: testContent}}
-			req, err := newUploadDataRequest(cred, testData)
+		if got, want := req.URL.String(), "https://neocities.org/api/delete"; got != want {
+			t.Fatalf("req.URL.String() = %q, want %q", got, want)
+		}
+	})
 
-			So(err, ShouldBeNil)
-			So(req.Method, ShouldEqual, "POST")
-			So(req.URL.String(), ShouldEqual, "https://neocities.org/api/upload")
-		})
+	t.Run("newUploadRequest", func(t *testing.T) {
+		req, err := newUploadRequest(cred, []string{"../LICENSE"})
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+
+		if got, want := req.Method, "POST"; got != want {
+			t.Fatalf("req.Method = %q, want %q", got, want)
+		}
+
+		if got, want := req.URL.String(), "https://neocities.org/api/upload"; got != want {
+			t.Fatalf("req.URL.String() = %q, want %q", got, want)
+		}
+	})
+
+	t.Run("newUploadDataRequest", func(t *testing.T) {
+		testContent, err := ioutil.ReadFile("../LICENSE")
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+
+		testData := []UploadData{
+			UploadData{
+				FileName: "LICENSE_string",
+				Content:  testContent,
+			},
+		}
+
+		req, err := newUploadDataRequest(cred, testData)
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+
+		if got, want := req.Method, "POST"; got != want {
+			t.Fatalf("req.Method = %q, want %q", got, want)
+		}
+
+		if got, want := req.URL.String(), "https://neocities.org/api/upload"; got != want {
+			t.Fatalf("req.URL.String() = %q, want %q", got, want)
+		}
 	})
 }

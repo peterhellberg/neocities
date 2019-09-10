@@ -6,4 +6,3 @@ go: "1.13"
 
 install:
   - go get github.com/ogier/pflag
-  - go get -t github.com/smartystreets/goconvey/convey

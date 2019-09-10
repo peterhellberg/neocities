@@ -1,28 +1,21 @@
 package client
 
-import (
-	. "github.com/smartystreets/goconvey/convey"
-
-	"testing"
-)
+import "testing"
 
 func TestUpload(t *testing.T) {
-	Convey("Upload", t, func() {
+	t.Run("cmdUpload", func(t *testing.T) {
 		u := cmdUpload
 
-		Convey("Usage", func() {
-			usage := "upload <filename> [<another filename>]"
-			So(u.Usage, ShouldEqual, usage)
-		})
+		if got, want := u.Usage, "upload <filename> [<another filename>]"; got != want {
+			t.Fatalf("u.Usage = %q, want %q", got, want)
+		}
 
-		Convey("Short", func() {
-			short := "Upload files to Neocities"
-			So(u.Short, ShouldEqual, short)
-		})
+		if got, want := u.Short, "Upload files to Neocities"; got != want {
+			t.Fatalf("u.Short = %q, want %q", got, want)
+		}
 
-		Convey("Long", func() {
-			long := "Upload files to your Neocities website"
-			So(u.Long, ShouldEqual, long)
-		})
+		if got, want := u.Long, "Upload files to your Neocities website"; got != want {
+			t.Fatalf("u.Long = %q, want %q", got, want)
+		}
 	})
 }
