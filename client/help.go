@@ -38,6 +38,7 @@ Commands:
    upload    Upload files to Neocities
    delete    Delete files from Neocities
    info      Info about Neocities websites
+   key       Neocities API key
    version   Show neocities client version
 
 Help for a specific command:
@@ -47,6 +48,10 @@ Environment setup:
 
    export NEOCITIES_USER=<username>
    export NEOCITIES_PASS=<password>
+  
+  (OR)
+
+   export NEOCITIES_KEY=<key>
 
 `
 
