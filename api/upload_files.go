@@ -63,7 +63,7 @@ func newUploadRequest(a Authenticator, paths []string) (*http.Request, error) {
 		return nil, err
 	}
 
-	if a == nil {
+	if a != nil {
 		a.Authenticate(req)
 	}
 
