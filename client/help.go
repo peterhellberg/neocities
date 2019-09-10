@@ -39,6 +39,7 @@ Commands:
    delete    Delete files from Neocities
    info      Info about Neocities websites
    key       Neocities API key
+   list      List files on Neocities
    version   Show neocities client version
 
 Help for a specific command:
