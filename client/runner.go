@@ -55,7 +55,6 @@ func (r *Runner) Execute() ExecError {
 // Call calls a command with the given args
 func (r *Runner) Call(cmd *Command, args *Args) ExecError {
 	err := cmd.Call(args)
-
 	if err != nil {
 		if err == flag.ErrHelp {
 			err = nil

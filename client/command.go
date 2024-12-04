@@ -10,10 +10,8 @@ import (
 	"github.com/peterhellberg/neocities/api"
 )
 
-var (
-	// CmdRunner is the default command runner
-	CmdRunner = NewRunner()
-)
+// CmdRunner is the default command runner
+var CmdRunner = NewRunner()
 
 // Command contains a function to run,
 // a flagset, and usage instructions

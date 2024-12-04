@@ -36,7 +36,6 @@ func TestArgs(t *testing.T) {
 			if got, want := args.Command, cmd; got != want {
 				t.Fatalf("args.Command = %q, want %q", got, want)
 			}
-
 		})
 
 		t.Run("with command and params", func(t *testing.T) {
