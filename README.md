@@ -18,7 +18,7 @@ You can download precompiled binaries for
 
 Or, if you have [Go](http://golang.org/) installed:
 
-    go get -u github.com/peterhellberg/neocities
+    go install github.com/peterhellberg/neocities@latest
 
 ## Usage
 
