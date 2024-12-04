@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -28,7 +28,7 @@ type Info struct {
 
 // PopulateFromHTTPResponse use a HTTP response to populate itself
 func (r *Response) PopulateFromHTTPResponse(res *http.Response) error {
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return err
 	}
