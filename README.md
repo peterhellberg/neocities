@@ -5,7 +5,7 @@ Upload files to you [Neocities](https://neocities.org/) website from the
 comfort of your own terminal.
 
 [![Build Status](https://travis-ci.org/peterhellberg/neocities.svg?branch=master)](https://travis-ci.org/peterhellberg/neocities)
-[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/peterhellberg/neocities)
+[![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://pkg.go.dev/github.com/peterhellberg/neocities)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/peterhellberg/neocities#license-mit)
 
 ## Installation
