@@ -1,8 +1,0 @@
-language: go
-
-dist: bionic
-
-go: "1.13"
-
-install:
-  - go get github.com/ogier/pflag
