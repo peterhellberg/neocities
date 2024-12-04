@@ -3,7 +3,7 @@ package client
 import "testing"
 
 func TestVersion(t *testing.T) {
-	if got, want := Version, "0.0.3"; got != want {
+	if got, want := Version, "0.0.4"; got != want {
 		t.Fatalf("Version = %q, want %q", got, want)
 	}
 
